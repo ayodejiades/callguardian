@@ -1,0 +1,154 @@
+{
+  "acc_appointment": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": false,
+      "givenAt": null,
+      "method": null
+    },
+    "id": "acc_appointment",
+    "lastCallAt": null,
+    "name": "Dana Ferreira",
+    "notes": "Dental cleaning tomorrow at 2pm \u2014 informational reminder, no consent required under the EBR exemption.",
+    "phone": "+15550106",
+    "rulePack": "appointment-reminder",
+    "suppressed": false,
+    "suppressedAt": null,
+    "suppressedReason": null,
+    "timezone": "America/New_York"
+  },
+  "acc_attempt_limit": {
+    "callCountDate": null,
+    "callCountToday": 3,
+    "consent": {
+      "given": true,
+      "givenAt": "2026-06-01T00:00:00Z",
+      "method": "web_form_checkbox"
+    },
+    "id": "acc_attempt_limit",
+    "lastCallAt": null,
+    "name": "Sam O'Reilly",
+    "notes": "Already dialed the daily cap for this pack (3/day).",
+    "phone": "+15550105",
+    "rulePack": "us-telemarketing-dnc",
+    "suppressed": false,
+    "suppressedAt": null,
+    "suppressedReason": null,
+    "timezone": "America/Chicago"
+  },
+  "acc_cleared": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": true,
+      "givenAt": "2026-01-15T00:00:00Z",
+      "method": "signed_agreement"
+    },
+    "id": "acc_cleared",
+    "lastCallAt": 1789040898.99868,
+    "name": "Jordan Blake",
+    "notes": "Auto loan, 45 days past due. Consented to servicing calls at origination.",
+    "phone": "+15550101",
+    "rulePack": "us-tcpa-collections",
+    "suppressed": false,
+    "suppressedAt": null,
+    "suppressedReason": null,
+    "timezone": "America/Chicago"
+  },
+  "acc_healthcare": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": false,
+      "givenAt": null,
+      "method": null
+    },
+    "id": "acc_healthcare",
+    "lastCallAt": null,
+    "name": "Grace Kim",
+    "notes": "Lab results follow-up call from her clinic.",
+    "phone": "+15550107",
+    "rulePack": "healthcare-outreach",
+    "suppressed": false,
+    "suppressedAt": null,
+    "suppressedReason": null,
+    "timezone": "America/Los_Angeles"
+  },
+  "acc_no_consent": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": false,
+      "givenAt": null,
+      "method": null
+    },
+    "id": "acc_no_consent",
+    "lastCallAt": null,
+    "name": "Priya Nair",
+    "notes": "Debt was purchased from a third party; no consent record carried over.",
+    "phone": "+15550102",
+    "rulePack": "us-tcpa-collections",
+    "suppressed": false,
+    "suppressedAt": null,
+    "suppressedReason": null,
+    "timezone": "America/New_York"
+  },
+  "acc_outside_window": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": true,
+      "givenAt": "2026-02-10T00:00:00Z",
+      "method": "signed_agreement"
+    },
+    "id": "acc_outside_window",
+    "lastCallAt": null,
+    "name": "Tobias Reid",
+    "notes": "Relocated; his stored timezone means most US business hours fall at his local 2-6am.",
+    "phone": "+15550108",
+    "rulePack": "us-tcpa-collections",
+    "suppressed": false,
+    "suppressedAt": null,
+    "suppressedReason": null,
+    "timezone": "Pacific/Auckland"
+  },
+  "acc_reconsented": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": true,
+      "givenAt": "2026-08-20T00:00:00Z",
+      "method": "recorded_ivr_reconsent"
+    },
+    "id": "acc_reconsented",
+    "lastCallAt": 1755000000.0,
+    "name": "Elena Torres",
+    "notes": "Opted out in June, called back in August asking to resume a payment plan and re-consented on a recorded line.",
+    "phone": "+15550104",
+    "rulePack": "us-tcpa-collections",
+    "suppressed": true,
+    "suppressedAt": 1755000000.0,
+    "suppressedReason": "opt_out_detected",
+    "timezone": "America/Denver"
+  },
+  "acc_suppressed": {
+    "callCountDate": null,
+    "callCountToday": 0,
+    "consent": {
+      "given": true,
+      "givenAt": "2025-11-01T00:00:00Z",
+      "method": "signed_agreement"
+    },
+    "id": "acc_suppressed",
+    "lastCallAt": 1778000000.0,
+    "name": "Marcus Webb",
+    "notes": "Said 'stop calling me' on the last call. Suppression is permanent for this pack.",
+    "phone": "+15550103",
+    "rulePack": "us-tcpa-collections",
+    "suppressed": true,
+    "suppressedAt": 1778000000.0,
+    "suppressedReason": "opt_out_detected",
+    "timezone": "America/Los_Angeles"
+  }
+}

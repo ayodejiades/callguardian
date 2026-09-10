@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — CallGuardian{% endblock %}
+{% block body %}
+<header class="top">
+  <div class="brand"><a href="/" style="color:inherit;text-decoration:none">CallGuardian<span class="dot">.</span></a></div>
+  <nav>
+    <span class="muted mono" style="margin-right:1.25rem">{{ email }}</span>
+    <a href="/signout">Sign out</a>
+  </nav>
+</header>
+<div class="wrap">
+  <section class="flex-between">
+    <div>
+      <h1>Accounts</h1>
+      <p class="lede" style="margin-bottom:0">Check compliance before dialing; only cleared accounts can be called.</p>
+    </div>
+    <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.8125rem;white-space:nowrap">
+      <input type="checkbox" id="demo-clock" style="width:auto;margin:0" onchange="loadAccounts()" />
+      simulate a US business afternoon
+    </label>
+  </section>
+
+  <section class="card" style="overflow-x:auto">
+    <table id="accounts-table" data-demo="accounts-table">
+      <thead>
+        <tr>
+          <th>Name</th><th>Phone</th><th>Rule pack</th><th>Consent</th><th>Suppressed</th>
+          <th>Status</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="accounts-body"></tbody>
+    </table>
+  </section>
+
+  <section class="flex-between">
+    <h2 style="margin:0">Audit log</h2>
+    <div class="flex">
+      <button class="ghost small" data-demo="verify-btn" onclick="verifyChain()">Verify chain</button>
+      <button class="ghost small" data-demo="tamper-btn" onclick="tamperLog()">Tamper last entry (demo)</button>
+    </div>
+  </section>
+  <p id="verify-result" class="mono" style="margin-top:-0.5rem"></p>
+  <section class="card" style="overflow-x:auto">
+    <table id="audit-table">
+      <thead><tr><th>#</th><th>Type</th><th>Payload</th><th>Hash</th></tr></thead>
+      <tbody id="audit-body"></tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+const RULE_PACK_LABEL = {
+  "us-tcpa-collections": "US collections (TCPA)",
+  "us-telemarketing-dnc": "US telemarketing (DNC)",
+  "appointment-reminder": "Appointment reminder",
+  "healthcare-outreach": "Healthcare outreach",
+};
+
+function maskPhone(p) { return p.slice(0, 2) + "•••••" + p.slice(-2); }
+function shortHash(h) { return h ? h.slice(0, 10) + "…" : "—"; }
+
+async function loadAccounts() {
+  const res = await fetch("/api/accounts");
+  const accounts = await res.json();
+  const body = document.getElementById("accounts-body");
+  body.innerHTML = "";
+  for (const a of accounts) {
+    const tr = document.createElement("tr");
+    tr.id = "row-" + a.id;
+    tr.innerHTML = `
+      <td>${a.name}</td>
+      <td class="mono">${maskPhone(a.phone)}</td>
+      <td>${RULE_PACK_LABEL[a.rulePack] || a.rulePack}</td>
+      <td>${a.consent.given ? "yes" : "no"}</td>
+      <td>${a.suppressed ? "yes" : "no"}</td>
+      <td data-demo="status-${a.id}" style="white-space:nowrap"><span class="muted">not checked</span></td>
+      <td>
+        <div class="flex" style="flex-wrap:nowrap;gap:0.4rem">
+          <button class="small" data-demo="check-${a.id}" onclick="checkAccount('${a.id}')">Check</button>
+          <button class="small ghost" id="call-${a.id}" data-demo="call-${a.id}" onclick="placeCall('${a.id}')" disabled>Call</button>
+        </div>
+      </td>`;
+    body.appendChild(tr);
+  }
+}
+
+function demoNow() {
+  // Only honored server-side when DEMO_MODE=1 (see api/main.py:_resolve_now) — lets a
+  // rehearsal or recording show a CLEARED example regardless of the real wall-clock time,
+  // without ever letting a live deployment's compliance decision be backdated by a caller.
+  return document.getElementById("demo-clock").checked ? "2026-09-11T18:00:00Z" : null;
+}
+
+async function checkAccount(id) {
+  const res = await fetch(`/api/gate/check`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ accountId: id, now: demoNow() }),
+  });
+  const decision = await res.json();
+  const cell = document.querySelector(`[data-demo="status-${id}"]`);
+  if (decision.status === "CLEARED") {
+    cell.innerHTML = `<span class="badge cleared" data-demo="result">CLEARED</span>`;
+    document.getElementById(`call-${id}`).disabled = false;
+  } else {
+    const reasons = decision.reasons.map(r => r.code).join(", ");
+    cell.innerHTML = `<span class="badge blocked" data-demo="result" title="${decision.reasons.map(r => r.message).join(' — ')}">BLOCKED: ${reasons}</span>`;
+    document.getElementById(`call-${id}`).disabled = true;
+  }
+  loadAudit();
+}
+
+async function placeCall(id) {
+  const btn = document.getElementById(`call-${id}`);
+  btn.disabled = true; btn.textContent = "Calling…";
+  const res = await fetch(`/api/gate/place-call`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ accountId: id, now: demoNow() }),
+  });
+  const outcome = await res.json();
+  const cell = document.querySelector(`[data-demo="status-${id}"]`);
+  cell.innerHTML += `<div class="muted mono" style="margin-top:0.25rem">${outcome.status} — ${outcome.summary || outcome.error || ""}</div>`;
+  btn.textContent = "Call";
+  loadAudit();
+}
+
+async function loadAudit() {
+  const res = await fetch("/api/audit");
+  const entries = await res.json();
+  const body = document.getElementById("audit-body");
+  body.innerHTML = "";
+  for (const e of entries.slice().reverse()) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="mono">${e.seq}</td><td>${e.type}</td>
+      <td class="mono muted">${JSON.stringify(e.payload).slice(0, 80)}</td>
+      <td class="mono">${shortHash(e.hash)}</td>`;
+    body.appendChild(tr);
+  }
+}
+
+async function verifyChain() {
+  const res = await fetch("/api/audit/verify");
+  const result = await res.json();
+  const el = document.getElementById("verify-result");
+  if (result.ok) {
+    el.innerHTML = `<span class="badge cleared">CHAIN OK</span> ${result.checked} entries verified`;
+  } else {
+    el.innerHTML = `<span class="badge blocked">CHAIN BROKEN</span> at entry ${result.brokenAt}: ${result.reason}`;
+  }
+}
+
+async function tamperLog() {
+  await fetch("/api/audit/tamper", { method: "POST" });
+  await loadAudit();
+  await verifyChain();
+}
+
+loadAccounts();
+loadAudit();
+</script>
+{% endblock %}

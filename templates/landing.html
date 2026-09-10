@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}CallGuardian: a compliance gate for CALL-E{% endblock %}
+{% block body %}
+<header class="top">
+  <div class="brand">CallGuardian<span class="dot">.</span></div>
+  <nav>
+    <a href="/signin">Sign in</a>
+    <a href="/signup" class="nav-cta">Sign up</a>
+  </nav>
+</header>
+<div class="wrap">
+
+  <section class="hero">
+    <h1>A compliance gate CALL-E calls have to pass first.</h1>
+    <p class="lede">
+      Pre-dial consent, call-window, and do-not-call checks. Live in-call opt-out
+      detection. A tamper-evident, hash-chained audit log of every decision. One engine,
+      pluggable rule packs per jurisdiction and vertical.
+    </p>
+    <div class="flex" style="margin-bottom:0.5rem">
+      <a href="/signup"><button>Dashboard <span class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></button></a>
+      <a href="https://github.com/CALLE-AI/awesome-phone-call-agents/tree/main/plugins/google-sheets-callguardian" target="_blank" rel="noopener"><button class="ghost">Google Sheets plugin <span class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></button></a>
+    </div>
+  </section>
+
+  <!-- Animated hash-chain visualization -->
+  <section>
+    <div class="chain">
+      <div class="chain-block verified">
+        <div class="block-seq">seq 1 <span class="status-dot"></span></div>
+        <div class="block-type">predial_check</div>
+        <div class="block-hash">a3f7c0e1d2b8…4f6e</div>
+        <div class="block-prev"><span>prev:</span> 0000000000</div>
+      </div>
+      <div class="chain-connector"></div>
+      <div class="chain-block verified">
+        <div class="block-seq">seq 2 <span class="status-dot"></span></div>
+        <div class="block-type">call_placed</div>
+        <div class="block-hash">9b1e4f8a0723…c9d1</div>
+        <div class="block-prev"><span>prev:</span> a3f7c0e1d2</div>
+      </div>
+      <div class="chain-connector"></div>
+      <div class="chain-block verified">
+        <div class="block-seq">seq 3 <span class="status-dot"></span></div>
+        <div class="block-type">call_outcome</div>
+        <div class="block-hash">c4d82a6e5f91…b7a9</div>
+        <div class="block-prev"><span>prev:</span> 9b1e4f8a07</div>
+      </div>
+      <div class="chain-connector broken-link"></div>
+      <div class="chain-block broken">
+        <div class="block-seq">seq 4 <span class="status-dot"></span></div>
+        <div class="block-type">CHAIN BROKEN</div>
+        <div class="block-hash">expected c4d82a…<br>got ff00a1b2c3…</div>
+        <div class="block-prev"><span>prev:</span> mismatch</div>
+      </div>
+      <div class="chain-connector"></div>
+      <div class="chain-block verified">
+        <div class="block-seq">seq 5 <span class="status-dot"></span></div>
+        <div class="block-type">predial_check</div>
+        <div class="block-hash">f0a93d17b2e4…8c0d</div>
+        <div class="block-prev"><span>prev:</span> ff00a1b2c3</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stat-strip">
+    <div class="stat"><div class="num">27/27</div><div class="label">eval cases pass</div></div>
+    <div class="stat"><div class="num">14/14</div><div class="label">API tests pass</div></div>
+    <div class="stat"><div class="num">4</div><div class="label">rule packs, one engine</div></div>
+    <div class="stat"><div class="num">2</div><div class="label">surfaces: dashboard + Sheets</div></div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <div class="timeline">
+      <div class="step">
+        <h3>Bring your list</h3>
+        <p class="muted">Accounts in the dashboard, or rows in any Google Sheet: name, phone, timezone, consent, rule pack.</p>
+      </div>
+      <div class="step">
+        <h3>CallGuardian checks it</h3>
+        <p class="muted">Consent, call-window, suppression, and attempt-cap rules run before anything dials. CLEARED, or BLOCKED with the exact reason.</p>
+      </div>
+      <div class="step">
+        <h3>CALL-E places the call</h3>
+        <p class="muted">Only cleared accounts get dialed. The outcome and a tamper-evident audit hash land back in the row.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid cols-2">
+    <div class="card">
+      <h2>Gate, not a wrapper</h2>
+      <p class="muted">Every dial is checked against consent, call-window, suppression, and attempt-cap rules before CALL-E is ever asked to place it. Reasons are named, never a bare pass/fail.</p>
+    </div>
+    <div class="card">
+      <h2>Tamper-evident audit log</h2>
+      <p class="muted">Every decision and call outcome is written to a hash-chained log. Edit one line after the fact and verification catches exactly where the chain breaks.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>One engine, pluggable rule packs</h2>
+    <p class="lede" style="margin-bottom:1rem">A fifth vertical is a new rule pack, not new engine code.</p>
+    <div class="pack-badges">
+      <span class="pack-badge"><span class="stat-name">us-tcpa-collections</span> US collections (TCPA/FDCPA/Reg F)</span>
+      <span class="pack-badge"><span class="stat-name">us-telemarketing-dnc</span> US telemarketing (TCPA/DNC)</span>
+      <span class="pack-badge"><span class="stat-name">appointment-reminder</span> service reminders</span>
+      <span class="pack-badge"><span class="stat-name">healthcare-outreach</span> healthcare outreach</span>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>See it block a call.</h2>
+    <p class="muted" style="margin-bottom:1.5rem">Eight seeded accounts, four rule packs, one audit log you can try to break.</p>
+    <div class="flex" style="justify-content:center">
+      <a href="/signup"><button>Dashboard <span class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></button></a>
+      <a href="https://github.com/CALLE-AI/awesome-phone-call-agents/tree/main/plugins/google-sheets-callguardian" target="_blank" rel="noopener"><button class="ghost">Try it in a Google Sheet <span class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></button></a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;padding-top:1.5rem;padding-bottom:1.5rem">
+    <div class="brand">CallGuardian<span class="dot">.</span></div>
+    <p class="muted" style="margin:0;font-size:0.75rem">Built for <a href="https://github.com/CALLE-AI/awesome-phone-call-agents" target="_blank" rel="noopener">CALL-E</a>. Not affiliated. Illustrations by <a href="https://undraw.co/illustrations" target="_blank" rel="noopener">unDraw</a> (MIT).</p>
+  </div>
+</footer>
+{% endblock %}

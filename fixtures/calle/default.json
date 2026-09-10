@@ -1,0 +1,5 @@
+{
+  "status": "completed",
+  "transcript": "AGENT: Hi, this is an automated call regarding your account. This is an attempt to collect a debt; any information obtained will be used for that purpose. Do you have a moment to discuss your account?\nRECIPIENT: Yes, go ahead.\nAGENT: Thanks. Our records show a payment of $180 was due on the 3rd. Would you like to set up a payment plan today?\nRECIPIENT: Sure, that works.\nAGENT: Great, I'll note that and a specialist will follow up with the plan details.",
+  "summary": "Recipient acknowledged the debt and agreed to a follow-up call to arrange a payment plan. No opt-out."
+}

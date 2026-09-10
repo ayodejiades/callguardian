@@ -1,0 +1,5 @@
+{
+  "status": "completed",
+  "transcript": "AGENT: Hi, this is an automated call regarding your account. This is an attempt to collect a debt; any information obtained will be used for that purpose. Do you have a moment to discuss your account?\nRECIPIENT: No. Stop calling me, take me off your list.\nAGENT: Understood, I'll note that and no further calls will be made regarding this matter.",
+  "summary": "Recipient invoked an opt-out mid-call ('stop calling me, take me off your list'). No payment discussion occurred."
+}

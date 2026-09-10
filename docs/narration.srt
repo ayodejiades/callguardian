@@ -1,0 +1,40 @@
+1
+00:00:00,000 --> 00:00:05,175
+This is CallGuardian, a compliance gate every CALL-E call has to pass first.
+
+2
+00:00:05,175 --> 00:00:15,669
+Eight seeded accounts live on this dashboard. Four rule packs govern them: US collections, US telemarketing, appointment reminders, healthcare outreach.
+
+3
+00:00:15,669 --> 00:00:22,799
+I pin the clock to a US business afternoon. Call windows then judge a fixed hour, not the filming time.
+
+4
+00:00:22,799 --> 00:00:28,018
+Jordan Blake has consent on file and sits inside the call window. Cleared.
+
+5
+00:00:28,018 --> 00:00:34,039
+For Priya Nair, no consent is on file. The gate blocks the call and names the reason.
+
+6
+00:00:34,039 --> 00:00:39,834
+Only cleared accounts get dialed. The outcome and its audit hash land back in the row.
+
+7
+00:00:39,834 --> 00:00:46,231
+Every decision lands in a hash-chained log. Verify recomputes the whole chain, and it holds.
+
+8
+00:00:46,231 --> 00:00:53,848
+One entry gets edited after the fact. Verify again, and the log names the exact entry where the chain breaks.
+
+9
+00:00:53,848 --> 00:01:05,516
+Fourteen of fourteen API tests pass, with twenty-seven of twenty-seven compliance evals beside them. The suite runs offline in demo mode, with no live calls.
+
+10
+00:01:05,516 --> 00:01:17,266
+Outreach teams get the same engine as a Google Sheets plugin, where they already keep their lists. This is pull request 437 to CALLE-AI's awesome-phone-call-agents.
+

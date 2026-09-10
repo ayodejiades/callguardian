@@ -1,0 +1,14 @@
+{
+  "baseUrl": "${DEPLOY_URL}",
+  "viewport": { "width": 1280, "height": 800 },
+  "steps": [
+    { "say": "Sign in to CallGuardian", "goto": "/signin" },
+    { "say": "Open the accounts dashboard — eight seeded accounts across four rule packs", "fill": {} },
+    { "say": "Tick 'simulate a US business afternoon' so the recording is correct regardless of what time it's actually filmed", "click": "#demo-clock" },
+    { "say": "Check a consented, in-window account — CLEARED", "click": "[data-demo='check-acc_cleared']", "waitFor": "[data-demo='status-acc_cleared'] [data-demo='result']" },
+    { "say": "Check an account with no consent on file — BLOCKED: NO_CONSENT", "click": "[data-demo='check-acc_no_consent']", "waitFor": "[data-demo='status-acc_no_consent'] [data-demo='result']" },
+    { "say": "Place the cleared call through CALL-E and see the outcome land in the row", "click": "[data-demo='call-acc_cleared']", "waitFor": "[data-demo='status-acc_cleared']" },
+    { "say": "Verify the audit chain — every decision and call outcome, hash-chained", "click": "[data-demo='verify-btn']", "waitFor": "#verify-result" },
+    { "say": "Tamper one entry and verify again — the chain visibly breaks at the exact entry", "click": "[data-demo='tamper-btn']", "waitFor": "#verify-result" }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "recordedAt": "2026-09-10T17:40:04.810+00:00",
+  "baseUrl": "https://callguardian-tkhj.onrender.com",
+  "demoMode": false,
+  "durationSeconds": 16.766667,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "steps": [
+    {
+      "index": 0,
+      "atSeconds": 0,
+      "say": "Sign in to CallGuardian"
+    },
+    {
+      "index": 1,
+      "atSeconds": 2.611,
+      "say": "Open the accounts dashboard"
+    },
+    {
+      "index": 2,
+      "atSeconds": 4.858,
+      "say": "Open the accounts dashboard — eight seeded accounts across four rule packs"
+    },
+    {
+      "index": 3,
+      "atSeconds": 5.665,
+      "say": "Tick 'simulate a US business afternoon' so the recording is correct regardless of what time it's actually filmed"
+    },
+    {
+      "index": 4,
+      "atSeconds": 6.509,
+      "say": "Check a consented, in-window account — CLEARED"
+    },
+    {
+      "index": 5,
+      "atSeconds": 8.142,
+      "say": "Check an account with no consent on file — BLOCKED: NO_CONSENT"
+    },
+    {
+      "index": 6,
+      "atSeconds": 9.777,
+      "say": "Place the cleared call through CALL-E and see the outcome land in the row"
+    },
+    {
+      "index": 7,
+      "atSeconds": 10.633,
+      "say": "Verify the audit chain — every decision and call outcome, hash-chained"
+    },
+    {
+      "index": 8,
+      "atSeconds": 12.265,
+      "say": "Tamper one entry and verify again — the chain visibly breaks at the exact entry"
+    }
+  ],
+  "clicks": [
+    {
+      "atSeconds": 2.626,
+      "to": [
+        0.7,
+        0.6003515625
+      ],
+      "selector": "button[type='submit']",
+      "say": "Open the accounts dashboard"
+    },
+    {
+      "atSeconds": 5.673,
+      "to": [
+        0.71082763671875,
+        0.155
+      ],
+      "selector": "#demo-clock",
+      "say": "Tick 'simulate a US business afternoon' so the recording is correct regardless of what time it's actually filmed"
+    },
+    {
+      "atSeconds": 6.516,
+      "to": [
+        0.7696044921875,
+        0.4665234375
+      ],
+      "selector": "[data-demo='check-acc_cleared']",
+      "say": "Check a consented, in-window account — CLEARED"
+    },
+    {
+      "atSeconds": 8.151,
+      "to": [
+        0.7696044921875,
+        0.5874609375
+      ],
+      "selector": "[data-demo='check-acc_no_consent']",
+      "say": "Check an account with no consent on file — BLOCKED: NO_CONSENT"
+    },
+    {
+      "atSeconds": 9.787,
+      "to": [
+        0.8291748046875,
+        0.4665234375
+      ],
+      "selector": "[data-demo='call-acc_cleared']",
+      "say": "Place the cleared call through CALL-E and see the outcome land in the row"
+    },
+    {
+      "atSeconds": 10.639,
+      "to": [
+        0.697332763671875,
+        1.07421875
+      ],
+      "selector": "[data-demo='verify-btn']",
+      "say": "Verify the audit chain — every decision and call outcome, hash-chained"
+    },
+    {
+      "atSeconds": 12.274,
+      "to": [
+        0.811431884765625,
+        0.61671875
+      ],
+      "selector": "[data-demo='tamper-btn']",
+      "say": "Tamper one entry and verify again — the chain visibly breaks at the exact entry"
+    }
+  ]
+}

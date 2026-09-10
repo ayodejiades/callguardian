@@ -1,0 +1,65 @@
+# Deny-by-default: nothing is tracked unless explicitly allowed below. This is deliberate
+# — the project accumulates local scratch files, venvs, and a real .env with a live API key
+# during development, and an allowlist is the only way to guarantee none of that ever gets
+# staged by accident. When adding a new file that belongs in the submission, add its path
+# (or its directory) below rather than loosening this to a blanket allow.
+/*
+!/.gitignore
+
+# ── Directories that belong in the submission, in full ──
+!/.github/
+!/api/
+!/docs/
+!/evals/
+!/plugins/
+!/public/
+!/templates/
+!/tests/
+
+# ── Root files that belong in the submission ──
+!/.env.example
+!/.python-version
+!/CREDITS.md
+!/Dockerfile
+!/LICENSE
+!/Makefile
+!/README.md
+!/pyproject.toml
+!/render.yaml
+!/thumbnail.png
+!/thumbnail.jpg
+!/uv.lock
+
+# ── fixtures/: the seed data and CALL-E demo-mode fixtures ship; the mutable runtime
+#    files they seed do not (see api/accounts.reseed — hand-editing them just drifts from
+#    the seed and confuses the next reseed) ──
+!/fixtures/
+!/fixtures/**/
+!/fixtures/accounts.seed.json
+!/fixtures/calle/
+!/fixtures/calle/*.json
+/fixtures/accounts.json
+/fixtures/users.json
+/fixtures/audit/
+
+# ── Re-exclude generated/runtime artifacts that can appear inside allowed directories ──
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+.DS_Store
+.env
+.env.local
+.env.*.local
+node_modules/
+docs/demo.mp4
+docs/fallback.mp4
+docs/*.gif
+public/audio/
+.vscode/
+.idea/
+sub.md
+AGENTS.md
+agents.md
