@@ -117,7 +117,6 @@ Source: [`fixtures/accounts.seed.json`](fixtures/accounts.seed.json)
 ## Project Structure
 
 ```
-├── AGENTS.md                          # Agent handoff — state, open items, hard rules
 ├── README.md                          # This file
 ├── render.yaml                        # Public deploy config (DEMO_MODE=1, safe by default)
 ├── Dockerfile
